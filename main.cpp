@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <limits>
 using namespace std;
 
 int main() {
@@ -19,7 +20,11 @@ int main() {
             cout << "Score " << i << ": ";
             cin >> score;
 
-            while (score < 0 || score > 100) {
+            while (cin.fail() || score < 0 || score > 100) {
+                if (cin.fail()) {
+                    cin.clear();
+                    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                }
                 cout << "Invalid score. Enter a value from 0 to 100." << endl;
                 cout << "Score " << i << ": ";
                 cin >> score;
